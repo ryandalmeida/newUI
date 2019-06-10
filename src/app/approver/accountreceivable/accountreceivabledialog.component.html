@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Account Receivable</h1>
+<div mat-dialog-content>
+  <p>{{data}}</p>
+   <!-- <mat-form-field>
+    <input matInput [(ngModel)]="data.quantity">
+  </mat-form-field>  -->
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button  cdkFocusInitial (click)="onClick()">Ok</button>
+  </div>

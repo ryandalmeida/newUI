@@ -1,0 +1,260 @@
+<div *ngIf="!isRowClicked">
+  <mat-card class="search-form">
+    <div>
+      <form [formGroup]="searchForm" (ngSubmit)="searchAR()">
+
+        <div style="display: inline-flex;">
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Pledge Fund Type:</label>
+            <select formControlName="ARFundType" class="form-control" [class.ARFundType-select-open]="childMessage"
+              [class.ARFundType-select-close]="!childMessage">
+              <option value="Regular" selected>Regular</option>
+              <option value="Additional Contribution">Additional Contribution</option>
+            </select>
+          </div>
+
+
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Donor Name:</label>
+            <input formControlName="donorName" class="form-control" [class.donorName-input-open]="childMessage"
+              [class.donorName-input-close]="!childMessage">
+          </div>
+
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Country:</label>
+            <select formControlName="country" class="form-control" [class.country-select-open]="childMessage"
+              [class.country-select-close]="!childMessage">
+              <option value="United States" selected>United States</option>
+              <option value="India">India</option>
+              <option value="Australia">Australia</option>
+              <option value="England">England</option>
+            </select>
+          </div>
+
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label status">Status:</label>
+            <select formControlName="status" class="form-control" [class.status-select-open]="childMessage"
+              [class.status-select-close]="!childMessage">
+              <option value="New" selected>New</option>
+              <option value="Revise">Revise</option>
+              <option value="Approve">Approve</option>
+              <option value="Active">Active</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div style="display: inline-flex; margin-top: 5px;">
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label ar">Pledge No:</label>
+            <input formControlName="ar_no" class="form-control" [class.ar-input-open]="childMessage"
+              [class.ar-input-close]="!childMessage">
+          </div>
+
+
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label [class.invoice-label-open]="childMessage" [class.invoice-label-close]="!childMessage">Invoice
+              No:</label>
+            <input formControlName="invoice_no" class="form-control" [class.invoice_no-input-open]="childMessage"
+              [class.invoice_no-input-close]="!childMessage">
+          </div>
+
+
+
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label">Start Date:</label>
+            <input type="date" formControlName="startDate" class="form-control"
+              [class.startDate-input-open]="childMessage" [class.startDate-input-close]="!childMessage">
+          </div>
+
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label">End Date:</label>
+            <input type="date" formControlName="endDate" class="form-control" [class.endDate-input-open]="childMessage"
+              [class.endDate-input-close]="!childMessage">
+          </div>
+
+        </div>
+
+        <div style="margin-top: 10px">
+          <button mat-raised-button [class.searchBtn-open]="childMessage" [class.searchBtn-close]="!childMessage">
+            <i class="fa fa-search" aria-hidden="true"></i>Search</button>
+        </div>
+      </form>
+    </div>
+
+  </mat-card>
+
+  <div class="example-container mat-elevation-z8" style="margin:20px;">
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Pledge ID Column -->
+      <ng-container matColumnDef="pledgeId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Pledge No </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pledgeId}} </mat-cell>
+      </ng-container>
+
+      <!--  Pledge Type Column -->
+      <ng-container matColumnDef="pledgeType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Pledge Type </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pledgeFundType}} </mat-cell>
+      </ng-container>
+
+      <!-- Donor Name Column -->
+      <ng-container matColumnDef="donorName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Donor Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.donorName}} </mat-cell>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+      </ng-container>
+
+      <!-- Pledge Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Pledge Amount </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
+      </ng-container>
+
+      <!-- Bank Name Column -->
+      <ng-container matColumnDef="bankName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Bank Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.bankName}} </mat-cell>
+      </ng-container>
+
+      <!-- Approver Column -->
+      <ng-container matColumnDef="approver">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Approver </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.approvedBy}} </mat-cell>
+      </ng-container>
+
+      <!-- Start Date Column -->
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Start Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 06-11-2017 </mat-cell>
+      </ng-container>
+
+
+      <!-- End Date Column -->
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> End Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 06-11-2018 </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <button mat-raised-button><i class="fa fa-money" aria-hidden="true"></i></button>
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></mat-row>
+
+    </mat-table>
+    <div>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination" style="float:right; margin-right: 20px;">
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(page)">{{page}}</button>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(pager.currentPage + 1)"
+            style="border: 1px solid #27aaf5;">></button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<form [formGroup]="initiateARForm" (ngSubmit)="onARSubmit()" style="margin-left: 20px;" *ngIf="isRowClicked">
+  <div class="form-group" style="padding-top: 20px;    width: 35%;    ">
+
+
+ <!-- Pledge Id Column -->
+    <div class="initiateARForm-formField">
+      <label class="initiatePledgeForm-label">Pledge ID:</label>
+      <input type="text" formControlName="pledgeId" class="form-control" style="float: right;
+                      width: 195px;    height: 20px;" value={{rowData.pledgeId}}>
+    </div>
+    <br />
+     <!-- Country Column -->
+    <div class="initiateARForm-formField">
+      <label class="initiatePledgeForm-label">Country:</label>
+      <input type="text" formControlName="country" class="form-control" style="float: right;
+                      width: 195px;    height: 20px;" value={{rowData.country}}>
+    </div>
+    <br />
+
+    <!-- Account No Column -->
+    <div class="initiateARForm-formField">
+      <label class="initiatePledgeForm-label">Account No:</label>
+      <input type="text" formControlName="accountNo" class="form-control" style="float: right;
+                      width: 195px;    height: 20px;">
+    </div>
+    <br />
+     <!-- Bank name Column -->
+    <div>
+      <label class="initiatePledgeForm-label">Bank Name:</label>
+      <select formControlName="bankName" class="form-control " style="float: right;
+      width: 195px;    height: 20px;" value={{rowData.bankName}}>
+        <option value="SBI" selected>SBI</option>
+        <option value="Wells Fargo">Wells Fargo</option>
+        <option value="City">City</option>
+        <option value="RBI">RBI</option>
+      </select>
+    </div>
+    <br />
+
+    <div class="initiateARForm-formField">
+      <label class="initiatePledgeForm-label">Start Date:</label>
+      <input type="text" formControlName="startDate" class="form-control" style="float: right;
+                  width: 195px;    height: 20px;" value={{rowData.startDate}}>
+
+    </div>
+
+    <br />
+    <div class="initiateARForm-formField">
+      <label class="initiatePledgeForm-label">End Date:</label>
+      <input type="text" formControlName="endDate" class="form-control" style="float: right;
+                  width: 195px;    height: 20px;" value={{rowData.endDate}}>
+    </div>
+
+    <br />
+    <div class="initiateARForm-formField">
+      <label class="initiatePledgeForm-label">Amount:</label>
+      <input type="text" formControlName="amount" class="form-control" style="float: right;
+        width: 195px;    height: 20px;" value={{rowData.amount}}>
+    </div>
+
+    <br />
+    <div class="initiateARForm-formField">
+      <label class="initiatePledgeForm-label">Payment Period:</label>
+      <input type="text" formControlName="paymentPeriod" class="form-control" style="float: right;
+        width: 195px;    height: 20px;" value={{rowData.paymentPeriod}}>
+    </div>
+
+    <br />
+    <div class="initiateARForm-formField">
+      <label class="initiatePledgeForm-label">Number of Payment:</label>
+      <input type="text" formControlName="installments" class="form-control" style="float: right;
+                  width: 195px;    height: 20px;" value={{rowData.installments}}>
+    </div>
+    <br />
+
+    <div style="display: inline-flex;     margin-left: 180px; margin-top: 10px;">
+     
+
+      <div class="form-group" style="    float: right;
+      padding-top: 10px;
+      padding-right: 115px;">
+        <button mat-raised-button class="initiatePledgeForm-submitBtn">Submit</button>
+
+      </div>
+    </div>
+
+  </div>
+</form>

@@ -1,0 +1,105 @@
+<div *ngIf="!isRowClicked">
+  <mat-card class="search-form">
+    <div>
+      <form [formGroup]="searchForm" (ngSubmit)="searchPayment()">
+
+        <div style="display: inline-flex;">
+
+        </div>
+
+        <div style="margin-top: 10px">
+          <button mat-raised-button [class.searchBtn-open]="childMessage" [class.searchBtn-close]="!childMessage">
+            <i class="fa fa-search" aria-hidden="true"></i>Search</button>
+        </div>
+      </form>
+    </div>
+
+  </mat-card>
+
+  <div class="example-container mat-elevation-z8" style="margin:20px;">
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation(); store();" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Pledge ID Column -->
+      <ng-container matColumnDef="pledgeId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Pledge No </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pledgeId}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Donor Name Column -->
+      <ng-container matColumnDef="donorName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Donor Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.donorName}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+      </ng-container>
+
+
+      <!-- AR No Column -->
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> AR No </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.arId}} </mat-cell>
+      </ng-container>
+      Last Payment Date
+
+      <!-- Pledge Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Credit Amount </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
+      </ng-container>
+
+      <!-- Debit Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Debit </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.debit}} </mat-cell>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Country </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+      </ng-container>
+
+      <!-- Installment No Column -->
+      <ng-container matColumnDef="installmentNo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Installment No </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.installmentNo}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Last Payment Date Column -->
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Last Payment Date </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 06-11-2017 </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></mat-row>
+      <!--  <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr> -->
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <div style="    float: right;padding-right: 25px; margin-bottom: 10px;">
+    <button mat-raised-button class="approveBtn">
+      <i class="fa fa-check" aria-hidden="true"></i>Payment Received</button>
+  </div>
+</div>

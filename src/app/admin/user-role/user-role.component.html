@@ -1,0 +1,68 @@
+<form [formGroup]="userRoleForm" style="margin-left: 20px;" >
+  
+  <div class="form-group" style="padding-top: 20px; width: 40%;">
+    <mat-card>
+      <mat-card-content>
+    
+    <!-- User Name--->
+    <div class="styled-1">
+      <label class="initiatePledgeForm-label" style="padding-right: 20px;">User Name:</label>
+      <input formControlName="userName" class="form-control" [class.userName-open]="childMessage"
+              [class.emailId-close]="!childMessage" #userName style="width:198px; border-width: 1px;">
+              <button mat-raised-button [class.searchBtn-open]="childMessage" [class.searchBtn-close]="!childMessage" (click)="searchUserName()">
+                <i class="fa fa-search" aria-hidden="true"></i>Search</button>
+    </div>
+    <br/>
+
+      <!-- Name-->
+    <div class="userRoleForm-formField">
+      <label class="initiatePledgeForm-label">Name:</label>
+      <input type="text" formControlName="name" class="form-control inputField"  style="width:198px; border-width: 1px;" value={{name}}>
+    </div>
+    </mat-card-content>
+  </mat-card>
+  <br />
+
+    <!-- Start Date-->
+    <div class="userRoleForm-formField">
+      <label class="initiatePledgeForm-label" style="padding-right: 12px;">Start Date:</label>
+      <input type="date" formControlName="startDate" class="form-control inputField" style="width:198px;  border-width: 1px;" >
+    </div>
+    <br/>
+
+    <!-- End Date-->
+    <div class="userRoleForm-formField">
+      <label class="initiatePledgeForm-label" style="padding-right: 25px;">End Date:</label>
+      <input type="date" formControlName="endDate" class="form-control inputField" style="width:198px; border-width: 1px;">
+    </div> 
+    <br/>
+
+    <!-- Role-->
+    <div class="userRoleForm-formField">
+      <label class="initiatePledgeForm-label">Role:</label>
+      <br/>
+   
+      <mat-card>
+        <mat-card-content>
+           <section>
+            <mat-checkbox formControlName="role1" ng-true-value="WBG Business User" class="initiatePledgeForm-label" ng-model="UserRoleData">WBG Business User</mat-checkbox>
+            <br/>
+            <mat-checkbox formControlName="role2" ng-true-value="WBG Business Approver" class="initiatePledgeForm-label" ng-model="UserRoleData">WBG Business Approver</mat-checkbox>
+            <br/>
+            <mat-checkbox formControlName="role3" ng-true-value="Donor" class="initiatePledgeForm-label" ng-model="UserRoleData">Donor</mat-checkbox>
+            <br/>
+            <mat-checkbox formControlName="role4" ng-true-value="WBG Treasury" class="initiatePledgeForm-label" ng-model="UserRoleData">WBG Treasury</mat-checkbox>
+          </section>
+        </mat-card-content>
+      </mat-card>  
+    </div>
+  <br/>
+  
+  <div class="form-group" style=" float: right; padding-top: 15px; padding-right: 115px;">
+      <button mat-raised-button class="initiatePledgeForm-submitBtn" (click)="updateUserRole()">Submit</button>
+    </div>
+  <br/>
+  
+</div>
+</form>
+

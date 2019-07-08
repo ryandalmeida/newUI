@@ -1,0 +1,130 @@
+<div>
+  <mat-card class="search-form">
+    <div>
+      <form [formGroup]="searchForm" (ngSubmit)="searchAuditLog()">
+        <div style="display: inline-flex;">
+  
+          <!--
+         <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Audit Log Id:</label>
+            <input formControlName="auditLogId" class="form-control" [class.auditLogId-input-open]="childMessage"
+              [class.donorName-input-close]="!childMessage">
+          </div>
+          -->  
+
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Action:</label>
+            <input formControlName="action" class="form-control" [class.action-input-open]="childMessage"
+              [class.donorName-input-close]="!childMessage">
+          </div>
+
+         <!--
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Content:</label>
+            <input formControlName="content" class="form-control" [class.content-input-open]="childMessage"
+              [class.donorName-input-close]="!childMessage">
+          </div>
+        -->
+
+        <div style="display: inline-flex; margin-top: 5px;">
+          
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label ar">Modified By:</label>
+            <input formControlName="modifiedBy" class="form-control" [class.modifiedBy-input-open]="childMessage"
+              [class.ar-input-close]="!childMessage">
+          </div>
+
+          <div [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label">Modified Date:</label>
+            <input type="date" formControlName="modifiedDate" class="form-control"
+              [class.modifiedDate-input-open]="childMessage" [class.modifiedDate-input-close]="!childMessage">
+          </div>
+       </div>
+
+    </div>
+      <div style="margin-top: 10px">
+          <button mat-raised-button [class.searchBtn-open]="childMessage" [class.searchBtn-close]="!childMessage">
+            <i class="fa fa-search" aria-hidden="true"></i>Search</button>
+        </div>
+      </form>
+    </div>
+
+  </mat-card>
+ 
+  <div class="example-container mat-elevation-z8" style="margin:20px;">
+    <mat-table [dataSource]="dataSource" matSort class="col-md-12">
+
+      <ng-container matColumnDef="checked">
+        <mat-header-cell *matHeaderCellDef>Check</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-checkbox [(ngModel)]="element.checked"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation(); store();"
+            (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+            [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+              
+      <!-- Audit Log Id Column -->
+      <ng-container matColumnDef="auditLogId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Audit Log Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.auditLogId}} </mat-cell>
+      </ng-container>
+      
+     <!-- Action Column -->
+       <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.action}} </mat-cell>
+        </ng-container>
+
+      <!-- Content Column -->
+      <ng-container matColumnDef="content">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Content </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.content}} </mat-cell>
+      </ng-container>
+
+      <!-- Modified By Column -->
+      <ng-container matColumnDef="modifiedBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Modified By </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.modifiedBy}} </mat-cell>
+      </ng-container>
+      
+      <!-- Modified Date Column -->
+      <ng-container matColumnDef="modifiedDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Modified Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.modifiedDate}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
+      <!--  <tr mat-footer-row *matFooterRowDef="['disclaimer']" class="example-second-footer-row"></tr> -->
+    </mat-table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    
+    <div>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination" style="float:right; margin-right: 20px;">
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(page)">{{page}}</button>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(pager.currentPage + 1)"
+            style="border: 1px solid #27aaf5;">></button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  
+</div>
+

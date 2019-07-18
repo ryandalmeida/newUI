@@ -1,0 +1,44 @@
+.toolbar{
+    height: 40px;
+    background: #002b54;
+    width: 100%;
+    padding-top: 7px;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+  color: black;
+  float: right;
+}
+
+.example-sidenav-container {
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  flex: 1 0 auto;
+}
+
+.btnClicked{
+    background-color: #b0b0b0;
+}
+
+.btnNotClicked{
+    background-color: transparent;
+}
+
+
+

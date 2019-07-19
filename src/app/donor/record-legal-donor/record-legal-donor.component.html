@@ -1,0 +1,290 @@
+<div *ngIf="!isRowClicked">
+  <mat-card class="col-md-11" style="max-width: 95.666667%;margin: 20px;" class="search-form" class="col-md-11"
+    style="max-width: 95.666667%;margin: 20px;">
+    <div>
+      <form [formGroup]="searchForm" (ngSubmit)="searchLegal()">
+
+        <div style="display: inline-flex;" class="col-md-12" style="padding: 0px">
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Fund Type</label>
+            <select formControlName="pledgeFundType" class="form-control"
+              [class.pledgeFundType-select-open]="childMessage" [class.pledgeFundType-select-close]="!childMessage">
+              <option value="" disabled selected>Select fund type name</option>
+              <option value="Regular" selected>Regular</option>
+              <option value="Additional Contribution">Additional Contribution</option>
+            </select>
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space" style="margin-right: 10px;">Pledge ID</label>
+            <input formControlName="pledgeId" placeholder="Enter pledge ID" class="form-control"
+              [class.donorName-input-open]="childMessage" [class.donorName-input-close]="!childMessage">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Program Name</label>
+            <select formControlName="programName" class="form-control" [class.country-select-open]="childMessage"
+              [class.country-select-close]="!childMessage">
+              <option value="" disabled selected>Select program name</option>
+              <option value="Carbon Emission Reduction" selected>Carbon Emission Reduction</option>
+              <option value="Carbon Footprint">Carbon Footprint</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: inline-flex; margin-top: 10px;" class="col-md-12">
+
+          <div class="col-md-4" style="display: inline-flex;padding-left: 0px;"
+            [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label" style="padding-right: 12px;">Amount</label>
+            <input formControlName="amount" placeholder="Enter amount" class="form-control"
+              [class.ar-input-open]="childMessage" [class.ar-input-close]="!childMessage">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;padding-left: 10px;"
+            [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label">Start Date</label>
+            <input type="date" formControlName="startDate" class="form-control"
+              [class.startDate-input-open]="childMessage" [class.startDate-input-close]="!childMessage">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;padding-left: 20px;    padding-right: 0px;"
+            [class.search-formField-open]="childMessage" [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label" style="padding-right: 40px !important; ">End Date</label>
+            <input type="date" formControlName="endDate" class="form-control" [class.endDate-input-open]="childMessage"
+              [class.endDate-input-close]="!childMessage">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 10px;    margin-right: 2%;height: 25px;">
+            <button style="  max-width: 90px;" class="col-md-1" mat-raised-button [class.searchBtn-open]="childMessage"
+            [class.searchBtn-close]="!childMessage" (click)="cancelLegal()">
+           <!--  <i class="fa fa-times" aria-hidden="true" style="font-size: 18px;
+                margin-top: -4px;
+                padding-right: 7px;
+                font-weight: 500;"></i> -->Cancel</button>
+          <button style="margin-right: 15px;max-width: 90px;" class="col-md-1" mat-raised-button
+            [class.searchBtn-open]="childMessage" [class.searchBtn-close]="!childMessage">
+            <!-- <i class="fa fa-search" aria-hidden="true"></i> -->Search</button>
+        
+        </div>
+      </form>
+    </div>
+  </mat-card>
+
+  <div class="example-container mat-elevation-z8" style="margin:20px;">
+    <mat-table [dataSource]="dataSource" matSort class="col-md-12">
+
+      <!-- Pledge ID Column -->
+      <ng-container matColumnDef="pledgeId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('pledgeId')"> PLEDGE
+          ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pledgeId}} </mat-cell>
+      </ng-container>
+
+      <!-- WBG Program -->
+      <ng-container matColumnDef="wbgProgram" style="flex: 0 0 197px;">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('programName')" style="margin-left: 25px;">
+          PROGRAM NAME </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.programName}} </mat-cell>
+      </ng-container>
+
+      <!--  Pledge Type Column -->
+      <ng-container matColumnDef="pledgeType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('pledgeFundType')">
+          FUND TYPE </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pledgeFundType}} </mat-cell>
+      </ng-container>
+
+      <!-- Donor Name Column -->
+      <ng-container matColumnDef="donorName" style="flex: 0 0 154px;">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('donorName')"> DONOR
+          NAME </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.donorName}} </mat-cell>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="country" style="flex: 0 0 130px;">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('country')"> COUNTRY
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+      </ng-container>
+
+      <!-- Pledge Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('amount')"> AMOUNT ($)
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.amount}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Approver Column -->
+      <ng-container matColumnDef="approver">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('approvedBy')">
+          APPROVER </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="text-transform: capitalize"> {{element.approvedBy}} </mat-cell>
+      </ng-container>
+
+      <!-- Start Date Column -->
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('startDate')"> START
+          DATE </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.startDate}} </mat-cell>
+      </ng-container>
+
+      <!-- End Date Column -->
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('endDate')"> END DATE
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.endDate}} </mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('status')"> STATUS
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="recordlegalBtn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader">ACTION </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="padding-right: 40px;">
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <button class="recordLegalIcon" matTooltip="Record Legal"><i
+              class="fa fa-file-text-o" aria-hidden="true" style="margin-left: -15px;"></i></button>
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></mat-row>
+
+    </mat-table>
+    <div>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination" style="float:right; margin-right: 20px;">
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(page)">{{page}}</button>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(pager.currentPage + 1)"
+            style="border: 1px solid #27aaf5;">></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<form class="col-md-11" [formGroup]="recordLegalForm" style="margin-left: 20px;" *ngIf="isRowClicked">
+  <div class="form-group" style="padding-top: 20px;    width: 40%;    ">
+    <div>
+      <label class="form-label">Pledge ID:</label>
+      <input type="text" disabled formControlName="pledgeId" class="form-control" style="float: right;
+                          width: 210px;    height: 36px;" value={{rowData.pledgeId}}>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">Donor Name:</label>
+      <input type="text" disabled formControlName="donorName" class="form-control" style="float: right;
+                      width: 210px;    height: 36px;" value={{rowData.donorName}}>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">Program Name:</label>
+      <input type="text" disabled formControlName="wbg_program" class="form-control" style="float: right;
+                      width: 210px;    height: 36px;" value={{rowData.programName}}>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">Country:</label>
+      <input type="text" disabled formControlName="country" class="form-control" style="float: right;
+                      width: 210px;    height: 36px;" value={{rowData.country}}>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">Fund Type:</label>
+      <input type="text" disabled formControlName="pledgeFundType" class="form-control" style="float: right;
+                      width: 210px;    height: 36px;" value={{rowData.pledgeFundType}}>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">Start Date:</label>
+      <input type="text" disabled formControlName="startDate" class="form-control" style="float: right;
+                  width: 210px;    height: 36px;" value={{rowData.startDate}}>
+
+    </div>
+    <br />
+    <div>
+      <label class="form-label">End Date:</label>
+      <input type="text" disabled formControlName="endDate" class="form-control" style="float: right;
+                  width: 210px;    height: 36px;" value={{rowData.endDate}}>
+    </div>
+    <br />
+    <div>
+        <div style="display:inline-grid"> 
+      <label class="form-label" style="margin-bottom: 0px;">Amount:</label>
+      <span style="font-size: 11px">(USD)</span>
+        </div>
+      <input type="text" disabled formControlName="amount" class="form-control" style="float: right;
+        width: 210px;    height: 36px;" value={{rowData.amount}}>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">Payment Period:</label>
+      <input type="text" disabled formControlName="paymentPeriod" class="form-control" style="float: right;
+        width: 210px;    height: 36px;" value={{rowData.paymentPeriod}}>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">Installments:</label>
+      <input type="text" disabled formControlName="installments" class="form-control" style="float: right;
+                  width: 210px;    height: 36px;" value={{rowData.installments}}>
+    </div>
+    <br /><br />
+
+
+    <div style="width: 170%;
+    display: inline-flex;
+    flex-direction: row;">
+
+      <div>
+        <label class="form-label">Business User Sign:</label>
+        <div class="initiatePledgeForm-formField1">
+          <textarea disabled rows="3" cols="50" class="form-control" style="float: right;
+          width: 300px; height:200px; resize: vertical; "></textarea>
+        </div>
+      </div>
+
+      <div style=" float: right; padding-left: 13px;">
+        <div>
+          <label class="form-label">Donor Sign: <span class="required">*</span></label>
+        </div>
+        <div class="m-signature-pad">
+              <span class="clearSign" matToolTip="Clear Sign" (click)="sigPad.clear()">X</span>
+          <signature-pad #sigPad>
+          </signature-pad>
+        </div>
+        <br />
+      </div>
+    </div>
+    <br />
+    <div style="display: inline-flex;     margin-left: 255px; ">
+        <div class="form-group" style="    float: right;
+        padding-top: 10px;
+        padding-right: 15px;">
+        <button mat-raised-button style="outline: none"
+        class="initiatePledgeForm-submitBtn" (click)="onLegalSubmit(rowData)">Submit</button>
+      </div>
+      <div class="form-group" style="    float: right;
+        padding-top: 10px;
+        padding-right: 115px; ">
+        <button mat-raised-button style="outline: none"
+         class="initiatePledgeForm-submitBtn" (click)="onCancel()">Cancel</button>
+      </div>
+     
+    </div>
+  </div>
+</form>

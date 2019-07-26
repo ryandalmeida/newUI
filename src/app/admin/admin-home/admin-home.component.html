@@ -1,0 +1,50 @@
+<mat-toolbar class="col-md-12" class="headerToolBar" >
+    {{header}}
+</mat-toolbar>  
+
+<section class="container">
+  <div class="row">
+    <mat-sidenav-container class="col-md-12" class="sidenavContainer" fullscreen>
+      <mat-sidenav class="col-md-6" #snav mode="side" id="sidenav" opened>
+    
+      <mat-list>
+        <mat-list-item style="margin-top: 5px">
+          <button class="menu-item" [class.btnClicked]="isUserRoleClicked" [class.btnNotClicked]="!isUserRoleClicked"
+            mat-flat-button (click)="openUserRole()">
+            <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size: 20px;
+            margin-left: 18px;
+            margin-right: 15px;"></i>User Role
+          </button>
+        </mat-list-item>  
+
+        <mat-list-item style="margin-top: 5px">
+          <button class="menu-item" [class.btnClicked]="isAuditLogDisplayClicked" [class.btnNotClicked]="!isAuditLogDisplayClicked"
+            mat-flat-button (click)="openAuditLogDisplay()">
+            <i class="fa fa-user-circle-o" aria-hidden="true" style="font-size: 20px;
+            margin-left: 18px;
+            margin-right: 15px;"></i>Audit Log Display
+          </button>
+        </mat-list-item>  
+      </mat-list>
+      </mat-sidenav>
+
+    <mat-sidenav-content class="col-md-11" class="matSidenavContent">
+      <div *ngIf="isUserRoleClicked">
+          <mat-toolbar class="col-md-12" class="headerToolBar" style="padding-left: 25px;
+          font-weight: 400;">
+              {{header}}
+            </mat-toolbar>
+        <app-user-role ></app-user-role>
+      </div>
+     
+      <div *ngIf="isAuditLogDisplayClicked">
+          <mat-toolbar class="col-md-12" class="headerToolBar" style="padding-left: 25px;
+          font-weight: 400;">
+              {{header}}
+            </mat-toolbar>
+            <app-audit-logDisplay></app-audit-logDisplay>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  </div>
+</section>

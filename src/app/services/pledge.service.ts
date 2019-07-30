@@ -17,12 +17,12 @@ export class PledgeService {
 
   getAllPledge(): Observable<PledgeData[]> {
 	  //this.baseUrl_azure+'/pledge-api/pledge/getAll'
-    return this.http.get<PledgeData[]>('http://10.168.42.156:8080/pledge/getAll', this.azure_headers);
+    return this.http.get<PledgeData[]>('http://10.168.42.189:8080/pledge/getAll', this.azure_headers);
   }
 
   getNewPledge(): Observable<PledgeData[]> {
 	  //this.baseUrl_azure+'/pledge-api/pledge/getNew'
-    return this.http.get<PledgeData[]>('http://10.168.42.156:8080/pledge/getNew', this.azure_headers);
+    return this.http.get<PledgeData[]>('http://10.168.42.189:8080/pledge/getNew', this.azure_headers);
   }
 
   submitPledge(postObject): Observable<Object> {
@@ -32,12 +32,12 @@ export class PledgeService {
 
   searchPledge(postObject): Observable<Object[]> {
 	  //this.baseUrl_azure+'/pledge-api/pledge/search'
-    return this.http.post<Object[]>('http://10.168.42.156:8080/pledge/search', postObject, this.azure_headers)
+    return this.http.post<Object[]>('http://10.168.42.189:8080/pledge/search', postObject, this.azure_headers)
   }
 
   searchPledgeApprover(postObject) {
 	  //this.baseUrl_azure+'/pledge-api/pledge/searchApprover'
-    return this.http.post<any>('http://10.168.42.156:8080/pledge/searchApprover', postObject, this.azure_headers)
+    return this.http.post<any>('http://10.168.42.189:8080/pledge/searchApprover', postObject, this.azure_headers)
   }
 
   approvePledge(postObject) {

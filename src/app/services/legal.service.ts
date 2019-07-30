@@ -17,12 +17,12 @@ export class LegalService {
 
   getAllLegalrecords(): Observable<PledgeData[]> {
 	//this.baseUrl_azure+'/pledge-api/pledge/getApproved'
-    return this.http.get<PledgeData[]>('http://10.168.42.156:8080/pledge/getApproved', this.azure_headers);
+    return this.http.get<PledgeData[]>('http://10.168.42.189:8080/pledge/getApproved', this.azure_headers);
   }
 
   getAllLegalRecordedbyDonor(): Observable<PledgeData[]> {
 	  //this.baseUrl_azure+'/pledge-api/pledge/getLegalRecordedByDonor'
-    return this.http.get<PledgeData[]>('http://10.168.42.156:8080/pledge/getLegalRecordedByDonor', this.azure_headers);
+    return this.http.get<PledgeData[]>('http://10.168.42.189:8080/pledge/getLegalRecordedByDonor', this.azure_headers);
   }
 
   onLegalSubmitWBGUser(postObject): Observable<Object> {
@@ -37,11 +37,11 @@ export class LegalService {
 
   getSign(postObject) {
 	  //this.baseUrl_azure+'/legal-api/legalAgreement/getSign'
-    return this.http.post('http://10.168.42.136:8080/legalAgreement/getSign', postObject, this.azure_headers)
+    return this.http.post('http://10.168.42.168:8080/legalAgreement/getSign', postObject, this.azure_headers)
   }
 
   search(postObject) {
 	  //this.baseUrl_azure+'/legal-api/legalAgreement/searchLegalAgreement'
-    return this.http.post<any>('http://10.168.42.136:8080/legalAgreement/searchLegalAgreement', postObject, this.azure_headers)
+    return this.http.post<any>('http://10.168.42.168:8080/legalAgreement/searchLegalAgreement', postObject, this.azure_headers)
   }
 }

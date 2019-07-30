@@ -114,7 +114,8 @@ import { ErrorDialogService } from './error-dialog/errordialog.service';
     Ng4LoadingSpinnerModule.forRoot(),
     MsAdalAngular6Module.forRoot(
       {
-        tenant: 'https://wbstss.worldbank.org/adfs',
+		instance: 'https://wbstss.worldbank.org/', 
+        tenant: 'adfs',
         clientId: 'aab07566-64b5-4ad7-a180-4dc881196361',
         redirectUri: window.location.origin,
         endpoints: {

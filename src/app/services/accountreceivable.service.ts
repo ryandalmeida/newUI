@@ -17,7 +17,7 @@ export class AccountreceivableService {
 
   getAllAR(): Observable<accountreceivableData[]> {
 	  //this.baseUrl_azure+'/pledge-api/pledge/getLegalRecordedByApprover'
-    return this.http.get<accountreceivableData[]>('http://10.168.42.156:8080/pledge/getLegalRecordedByApprover', this.azure_headers);
+    return this.http.get<accountreceivableData[]>('http://10.168.42.189:8080/pledge/getLegalRecordedByApprover', this.azure_headers);
   }
 
   submitAccountReceivable(postObject): Observable<Object> {

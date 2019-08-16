@@ -1,0 +1,31 @@
+<header>
+    <nav class="navbar fixed-top" id="navBar" style="    margin-left: 70px;">
+        <mat-toolbar class="toolbar">
+            <div style="width: 100%">
+                <img src="/assets/images/world-bank-horiz-white.svg" alt="The World Bank"
+                    style="height: 30px; width:160px; margin-bottom: 5px;">
+
+                <div style="float: right; margin-top: -4px;">
+                    <select [(ngModel)]="selectedItem" (ngModelChange)="onAnchorClick($event)" value={{selectedItem}}>
+                        <option value="Donor" [class.hidden]="checkAccess('DONOR')">Donor</option>
+                        <option value="Approver" [class.hidden]="checkAccess('APPROVER')">
+                            Approver</option>
+                        <option value="Treasury" [class.hidden]="checkAccess('TREASURY')">Treasury</option>
+                        <option value="Admin" [class.hidden]="checkAccess('ADMIN')">Admin</option> 
+                    </select>
+                </div>
+              
+                <div style="float: right; color: #ffffff; height: 20px; font-size: 14px;padding-top: 3px;">Welcome <span
+                        style="color:#71cbff">{{fname | titlecase}} {{lname | titlecase}}
+                    </span> </div>
+            </div>
+            <button mat-button cdkFocusInitial (click)="onLogout()" style="padding-bottom: 4px;
+       color: white;
+       font-size: 14px;
+       padding-right: 20px;
+       padding-left: 31px;
+       outline: none;
+                    cursor: pointer;">Logout</button>
+        </mat-toolbar>
+    </nav>
+</header>

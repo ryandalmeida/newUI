@@ -1,0 +1,61 @@
+<mat-toolbar  style="border-bottom: 1px solid #b0b0b0;background-color: #ffffff; height: 50px !important;">
+  
+    <mat-icon (click)="toggle()" id="toolbarMenu" style="padding-right: 40px;padding-left: 10px; font-size: 28px;">subject</mat-icon>{{header}}
+  </mat-toolbar>
+  
+  <mat-sidenav-container id="sidenavContainer" fullscreen>
+    <mat-sidenav #snav mode="side" id="sidenav" [class.menu-open]="isMenuOpen" [class.menu-close]="!isMenuOpen" opened>
+  
+      <mat-list id="menus">
+        <mat-card style="box-shadow: none !important; padding-bottom: 6px !important; height: 44px !important;">
+          <i class="fa fa-user-circle" aria-hidden="true" style="
+          padding-top: 7px;
+     font-size: x-large;
+     padding-left: 10px;
+     float: left;
+     padding-right: 20px;"></i>
+          <mat-card-header>
+  
+  
+            <mat-card-title style="    padding-top: 8px; ">John Doe</mat-card-title>
+  
+          </mat-card-header>
+        </mat-card>
+  <hr>
+        <mat-list-item >
+          <button class="menu-item" [class.btnClicked]="isDashboardClicked" [class.btnNotClicked]="!isDashboardClicked" mat-flat-button (click)="openDashboard()">
+            <mat-icon matTooltip="Dashboard" matTooltipPosition="right">dashboard</mat-icon>Dashboard
+          </button>
+        </mat-list-item>
+        <mat-list-item style="margin-top: 5px">
+          <button class="menu-item"  [class.btnClicked]="isInitiatePledgeClicked" [class.btnNotClicked]="!isInitiatePledgeClicked"
+          mat-flat-button (click)="openInitiatePledge()">
+            <i class="fa fa-handshake-o" aria-hidden="true" style="font-size: 20px;
+              margin-left: 18px;
+              margin-right: 15px;"></i>Initiate Pledge
+          </button>
+        </mat-list-item>
+        <mat-list-item style="margin-top: 5px">
+          <button class="menu-item" mat-flat-button>
+            <i class="fa fa-money" aria-hidden="true" style="font-size: 20px;
+                margin-left: 18px;
+                margin-right: 15px;"></i> Initiate Account Receivable
+          </button>
+        </mat-list-item>
+      </mat-list>
+  
+    </mat-sidenav>
+  
+    <mat-sidenav-content [ngStyle]="{'margin-left.px':contentMargin}">
+      <div *ngIf="isDashboardClicked">
+        <app-dashboard [childMessage]="isMenuOpen"></app-dashboard>
+      </div>
+      <div *ngIf="isInitiatePledgeClicked">
+        <app-initiate-pledge></app-initiate-pledge>
+      </div>
+     <!--  <div *ngIf="isInitiatePledgeClicked">
+        <app-initiate-pledge></app-initiate-pledge>
+      </div> -->
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>

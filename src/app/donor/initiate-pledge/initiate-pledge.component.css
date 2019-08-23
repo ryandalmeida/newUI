@@ -1,0 +1,16 @@
+.styled-1 > select option:focus {
+    border: 1px solid green;
+    box-shadow: 0 0 3pt 2pt red; 
+    
+/*     #719ECE */
+}
+
+.form-control.inputField{
+    float: right;
+      width: 200px;
+      height: 36px;
+      border-color: rgba(0,0,0,.26);
+      font-size: 14px;
+      color: #333333;
+      border-radius: 4px;
+}

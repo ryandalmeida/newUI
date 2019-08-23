@@ -1,0 +1,95 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" style="margin-left: 20px;">
+  <div class="form-group" style="padding-top: 20px;    width: 35%;    ">
+
+    <div class="styled-1">
+      <label class="initiatePledgeForm-label">Country:</label>
+      <select formControlName="country" class="form-control inputField"
+        [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+        <option value="United States" selected>United States</option>
+        <option value="India">India</option>
+        <option value="Australia">Australia</option>
+        <option value="England">England</option>
+      </select>
+     <!--  <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+        <div *ngIf="f.country.errors.required">Country is required</div>
+      </div> -->
+    </div>
+    <br />
+    <div class="initiatePledgeForm-formField">
+      <label class="initiatePledgeForm-label">WBG Program:</label>
+      <select formControlName="programName" class="form-control inputField" >
+        <option value="Carbon Emission Reduction" selected>Carbon Emission Reduction</option>
+        <option value="Carbon Footprint">Carbon Footprint</option>
+      </select>
+    <!--   <div *ngIf="submitted && f.wbg_program.errors" class="invalid-feedback">
+        <div *ngIf="f.wbg_program.errors.required">WBG Program is required</div>
+      </div> -->
+    </div>
+    <br />
+    <div class="initiatePledgeForm-formField">
+      <label class="initiatePledgeForm-label">Pledge Fund Type:</label>
+      <select formControlName="pledgeFundType" class="form-control inputField" >
+        <option value="regular" selected>Regular</option>
+        <option value="additional contribution">Additional Contribution</option>
+      </select>
+      <!-- <div *ngIf="submitted && f.pledgeFundType.errors" class="invalid-feedback">
+        <div *ngIf="f.pledgeFundType.errors.required">Pledge Fund Type is required</div>
+      </div> -->
+    </div>
+    <br />
+    <div class="initiatePledgeForm-formField">
+      <label class="initiatePledgeForm-label">Start Date:</label>
+      <input type="date" formControlName="startDate" class="form-control inputField" style="width:198px;  border-width: 1px;" >
+     <!--  <div *ngIf="submitted && f.startDate.errors" class="invalid-feedback">
+        <div *ngIf="f.startDate.errors.required">Start Date is required</div>
+      </div> -->
+    </div>
+
+    <br />
+    <div class="initiatePledgeForm-formField">
+      <label class="initiatePledgeForm-label">End Date:</label>
+      <input type="date" formControlName="endDate" class="form-control inputField" style="width:198px; border-width: 1px;">
+      <!-- <div *ngIf="submitted && f.endDate.errors" class="invalid-feedback">
+        <div *ngIf="f.endDate.errors.required">End Date is required</div>
+      </div> -->
+    </div>
+
+    <br />
+    <div class="initiatePledgeForm-formField">
+      <label class="initiatePledgeForm-label">Amount:</label>
+      <input class="form-control inputField" formControlName="amount" style="width:198px; border-width: 1px;" >
+     <!--  <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+        <div *ngIf="f.amount.errors.required">Amount is required</div>
+      </div> -->
+    </div>
+
+    <br />
+    <div class="initiatePledgeForm-formField">
+      <label class="initiatePledgeForm-label">Payment Period:</label>
+      <select formControlName="paymentPeriod" class="form-control inputField" >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+      </select>
+     <!--  <div *ngIf="submitted && f.paymentPeriod.errors" class="invalid-feedback">
+        <div *ngIf="f.paymentPeriod.errors.required">Payment period is required</div>
+      </div> -->
+    </div>
+
+    <br />
+    <div class="initiatePledgeForm-formField">
+      <label class="initiatePledgeForm-label">Number of Payment:</label>
+      <input class="form-control inputField" formControlName="installments" style="width:198px;      border-width: 1px; ">
+    <!--   <div *ngIf="submitted && f.noOfPayment.errors" class="invalid-feedback">
+        <div *ngIf="f.noOfPayment.errors.required">No. of payment is required</div>
+      </div> -->
+    </div>
+    <br />
+    <div class="form-group" style="    float: right;
+          padding-top: 15px;
+          padding-right: 115px;
+          ">
+      <button mat-raised-button class="initiatePledgeForm-submitBtn">Submit</button>
+    </div>
+  </div>
+</form>

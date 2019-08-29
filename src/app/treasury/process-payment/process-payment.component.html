@@ -1,0 +1,178 @@
+<div>
+  <mat-card class="col-md-11" style="max-width: 95.666667%;margin: 20px;">
+    <div>
+      <form [formGroup]="searchForm" (ngSubmit)="searchProcessPayment()">
+        <div style="display: inline-flex;" class="col-md-12">
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space">Fund Type</label>
+            <select formControlName="pledgeFundType" class="form-control" [class.ARFundType-select-open]="childMessage"
+              [class.ARFundType-select-close]="!childMessage">
+              <option value="" disabled selected>Select fund type</option>
+              <option value="Regular" selected>Regular</option>
+              <option value="Additional Contribution">Additional Contribution</option>
+            </select>
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space" style="margin-right: 10px;">Donor Name</label>
+            <input formControlName="donorName" placeholder="Enter donor name" class="form-control"
+              [class.donorName-input-open]="childMessage" [class.donorName-input-close]="!childMessage">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label space" style=" margin-right: 11px;">Country</label>
+            <select formControlName="country" class="form-control" [class.country-select-open]="childMessage"
+              [class.country-select-close]="!childMessage">
+              <option value="" disabled selected>Select country</option>
+              <option value="United States" selected>United States</option>
+              <option value="India">India</option>
+              <option value="Australia">Australia</option>
+              <option value="England">England</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: inline-flex;  margin-top: 10px;" class="col-md-12">
+
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label ar" style="margin-right: 4px;">Pledge ID</label>
+            <input formControlName="pledgeId" placeholder="Enter pledge ID" class="form-control"
+              [class.ar-input-open]="childMessage" [class.ar-input-close]="!childMessage">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label" style="padding-right: 18px;">Start Date</label>
+            <input type="date" formControlName="startDate" class="form-control"
+              [class.startDate-input-open]="childMessage" [class.startDate-input-close]="!childMessage">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;" [class.search-formField-open]="childMessage"
+            [class.search-formField-close]="!childMessage">
+            <label class="searchForm-label" style="margin-right: 10px;">End Date</label>
+            <input type="date" formControlName="endDate" class="form-control" [class.endDate-input-open]="childMessage"
+              [class.endDate-input-close]="!childMessage">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 10px;margin-right: 5%; height: 20px;">
+          <button type="reset" style="  max-width: 90px;" class="col-md-1" mat-raised-button
+            [class.searchBtn-open]="childMessage" [class.searchBtn-close]="!childMessage" (click)="cancelProcessPaymentSearch()">
+          Cancel</button>
+          <button type="submit" style="margin-left: 15px;max-width: 90px;" class="col-md-1" mat-raised-button
+            [class.searchBtn-open]="childMessage" [class.searchBtn-close]="!childMessage">
+           Search</button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+
+  <div class="example-container mat-elevation-z8" style="margin:20px;">
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="checked">
+        <mat-header-cell *matHeaderCellDef>Check</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-checkbox style="margin-top: 15px;" [(ngModel)]="element.checked"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox style="margin-top: 15px;" (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox style="margin-top: 15px;" (click)="$event.stopPropagation(); store();" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Pledge ID Column -->
+      <ng-container matColumnDef="pledgeId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('pledgeId')"> 
+            Pledge Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pledgeId}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Pledge Fund Type Column -->
+      <ng-container matColumnDef="pledgeFundType">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('pledgeFundType')">
+            Fund Type </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pledgeFundType}} </mat-cell>
+      </ng-container>
+
+      <!-- Invoice ID Column -->
+      <ng-container matColumnDef="invoiceId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('invoiceId')"> 
+            Invoice Id </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.invoiceId}} </mat-cell>
+      </ng-container>
+
+      <!-- Donor Name Column -->
+      <ng-container matColumnDef="donorName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('donorName')"> 
+            Donor Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.donorName | titlecase}} </mat-cell>
+      </ng-container>
+
+      <!-- AR No Column -->
+      <ng-container matColumnDef="arId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('arId')"> Ar Id
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.arId}} </mat-cell>
+      </ng-container>
+
+      <!-- Debit Amount Column -->
+      <ng-container matColumnDef="debitAmount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('debit')"> ($) Debit
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.debit| currency:'CAD':'symbol-narrow':'1.0-0'}} </mat-cell>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader" (click)="tableSort('country')"> Country
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader"> Status </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="padding-right: 30px !important;"> {{element.status}} </mat-cell>
+      </ng-container>
+
+      <!-- Installment No Column -->
+      <ng-container matColumnDef="installmentNo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="tableHeader"> Installment </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.installmentNo}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></mat-row>
+    </mat-table>
+
+    <div>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination" style="float:right; margin-right: 20px;">
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(page)">{{page}}</button>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(pager.currentPage + 1)"
+            style="border: 1px solid #27aaf5;">></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div style="float: right;padding-right: 25px; margin-bottom: 10px;">
+    <button mat-raised-button class="approveBtn" (click)="paymentReceived()">
+    Payment Received</button>
+  </div>
+</div>

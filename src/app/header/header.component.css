@@ -1,0 +1,148 @@
+.toolbar{
+    height: 40px;
+    background: #002b54;
+    width: 100%;
+    padding-top: 7px;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+  color: black;
+  float: right;
+}
+
+.example-sidenav-container {
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  flex: 1 0 auto;
+}
+
+.hidden{
+  display: none;
+}
+
+.btnClicked{
+  background-color:transparent;
+  padding-bottom: 4px;
+  color:white;
+  font-size: 14px;
+  padding-right: 20px;
+  padding-left: 31px;
+  outline: none;
+  cursor: pointer;
+}
+
+.btnClicked .ng-valid .ng-dirty .ng-touched{
+  background-color:transparent;
+  padding-bottom: 4px;
+  color:white;
+  font-size: 14px;
+  padding-right: 20px;
+  padding-left: 31px;
+  outline: none;
+  cursor: pointer;
+}
+
+select {
+  width:150px; 
+  height: 25px;
+  padding-left: 5px;
+  margin-left: 10px;
+  line-height:1;
+  background-color:#002b54;
+  color:white;
+  font-size:14px;
+  outline:none
+  }
+  select:hover {
+  color:white
+  }
+
+.btnNotClicked{
+  padding-bottom: 4px;
+  color: white;
+  font-size: 14px;
+  padding-right: 20px;
+  padding-left: 31px;
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: DodgerBlue;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.logoutBtn{
+  padding-bottom: 4px; color: white;   font-size: 14px; padding-right: 20px; padding-left: 10px;outline: none;cursor: pointer;
+}

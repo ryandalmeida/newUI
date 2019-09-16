@@ -1,0 +1,21 @@
+ .form-control.inputField {
+	float: right;
+	width: 210px;
+	height: 36px;
+	border-color: rgba(0, 0, 0, .26);
+	font-size: 14px;
+	color: #333333;
+	border-radius: 4px;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+	border-color: #000000c7;
+}
+
+::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{
+	background-color: #27aaf5 !important;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+	background-color: #27aaf5 !important;
+}

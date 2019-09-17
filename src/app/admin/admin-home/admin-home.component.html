@@ -1,0 +1,48 @@
+<button mat-flat-button class="menu-item" (click)="snav.toggle()" (click)="sideBtnClicked()" class="siderBtn">
+  <i *ngIf="isSideBtnClicked;else other_content" class="fa fa-angle-double-right" aria-hidden="true"></i>
+  <ng-template #other_content><i class="fa fa-angle-double-left" aria-hidden="true"></i></ng-template>
+</button>
+
+<section class="container">
+  <div class="row">
+    <mat-sidenav-container class="col-md-12" class="sidenavContainer" fullscreen style="margin-top: 40px;">
+      <mat-sidenav #snav mode="side" id="sidenav" opened>
+        <mat-list>
+          <mat-list-item style="height: 60px;margin-top: 20px">
+            <button mat-flat-button class="menu-item" [class.btnClicked]="isUserRoleClicked"
+              [class.btnNotClicked]="!isUserRoleClicked" mat-flat-button (click)="openUserRole()">
+              <i class="fa fa-user-circle-o" aria-hidden="true" style="margin-left:10px !important"></i>
+              <div class="menuName" style="margin-left: 2px !important;">User Role</div>
+            </button>
+          </mat-list-item>
+
+          <mat-list-item style="margin-top: 20px; height: 60px;">
+            <button mat-flat-button class="menu-item" [class.btnClicked]="isAuditLogDisplayClicked"
+              [class.btnNotClicked]="!isAuditLogDisplayClicked" mat-flat-button (click)="openAuditLogDisplay()">
+              <i class="fa fa-database" aria-hidden="true" style="margin-left:10px !important"></i>
+              <div class="menuName" style="margin-left: 2px !important;">Audit Log</div>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </mat-sidenav>
+
+      <mat-sidenav-content class="col-md-11" class="matSidenavContent">
+        <div *ngIf="isUserRoleClicked">
+          <mat-toolbar class="col-md-12" class="headerToolBar" style="padding-left: 25px;
+          font-weight: 400;">
+            {{header}}
+          </mat-toolbar>
+          <app-user-role></app-user-role>
+        </div>
+
+        <div *ngIf="isAuditLogDisplayClicked">
+          <mat-toolbar class="col-md-12" class="headerToolBar" style="padding-left: 25px;
+          font-weight: 400;">
+            {{header}}
+          </mat-toolbar>
+          <app-audit-logDisplay></app-audit-logDisplay>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</section>

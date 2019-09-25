@@ -1,0 +1,340 @@
+<div *ngIf="!isRowClicked">
+  <mat-card class="col-md-11" style="max-width: 95.666667%;margin: 20px;">
+    <div>
+      <form [formGroup]="searchForm" (ngSubmit)="searchAR()">
+        <div style="display: inline-flex;padding: 0px" class="col-md-12">
+          <div class="col-md-4" style="display: inline-flex;">
+            <label class="searchForm-label space" style="padding-right: 11px;">Fund Type</label>
+            <select formControlName="pledgeFundType" class="form-control">
+              <option value="" disabled selected>Select fund type</option>
+              <option value="Regular" selected>Regular</option>
+              <option value="Additional Contribution">Additional Contribution</option>
+            </select>
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;">
+            <label class="searchForm-label space" style="margin-right: 12px;">Pledge ID</label>
+            <input formControlName="pledgeId" placeholder="Enter pledge ID" class="form-control">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;">
+            <label class="searchForm-label space">Program Name</label>
+            <select formControlName="programName" class="form-control">
+              <option value="" disabled selected>Select program name</option>
+              <option value="Carbon Emission Reduction" selected>Carbon Emission Reduction</option>
+              <option value="Carbon Footprint">Carbon Footprint</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: inline-flex; margin-top: 10px;" class="col-md-12">
+          <div class="col-md-4" style="display: inline-flex;padding-left: 0px;">
+            <label class="searchForm-label " style="padding-right: 23px !important; ">Amount</label>
+            <input formControlName="amount" placeholder="Enter amount" class="form-control">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;padding-left: 10px;">
+            <label class="searchForm-label" style="    margin-right: 3px;">Start Date</label>
+            <input type="date" formControlName="startDate" class="form-control">
+          </div>
+
+          <div class="col-md-4" style="display: inline-flex;padding-left: 22px;
+          padding-right: 0px;">
+            <label class="searchForm-label" style="padding-right: 37px !important; ">End Date</label>
+            <input type="date" formControlName="endDate" class="form-control">
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 10px;    margin-right: 2%;    height: 20px;">
+          <button type="reset" style="  max-width: 90px;" class="col-md-1" mat-raised-button id="searchBtn"
+            (click)="cancelARSearch()">
+            Cancel</button>
+          <button type="submit" style="margin-left: 15px;max-width: 90px;" class="col-md-1" mat-raised-button
+            id="searchBtn">
+            Search</button>
+        </div>
+      </form>
+    </div>
+  </mat-card>
+
+  <div class="example-container mat-elevation-z8" style="margin:20px;">
+    <mat-table *ngIf="dataSource != null && dataSource.data.length > 0" [dataSource]="dataSource" matSort>
+
+      <!-- Pledge ID Column -->
+      <ng-container matColumnDef="pledgeId">
+        <mat-header-cell *matHeaderCellDef class="tableHeader" style="display: flex;
+            justify-content: flex-end;padding-right: 4px;">
+          <div style="display: inherit">
+            Pledge Id
+            <i *ngIf="order; else descending" class="fa fa-sort-asc" aria-hidden="true"
+              (click)="tableSort('pledgeId',true)" style="padding-left: 5px;padding-top: 5px"></i>
+            <ng-template #descending>
+              <i class="fa fa-sort-desc" aria-hidden="true" (click)="tableSort('pledgeId',false)"
+                style="padding-left: 5px; "></i>
+            </ng-template>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="justify-content: flex-end;
+            padding-right: 13px;"> {{element.pledgeId}} </mat-cell>
+      </ng-container>
+
+      <!--  Pledge Type Column -->
+      <ng-container matColumnDef="pledgeType">
+        <mat-header-cell *matHeaderCellDef class="tableHeader">
+          <div style="display: inherit">
+            Fund Type
+            <i *ngIf="order; else descending" class="fa fa-sort-asc" aria-hidden="true"
+              (click)="tableSort('pledgeFundType',true)" style="padding-left: 5px;padding-top: 5px"></i>
+            <ng-template #descending>
+              <i class="fa fa-sort-desc" aria-hidden="true" (click)="tableSort('pledgeFundType',false)"
+                style="padding-left: 5px; "></i>
+            </ng-template>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.pledgeFundType}} </mat-cell>
+      </ng-container>
+
+      <!-- Donor Name Column -->
+      <ng-container matColumnDef="donorName">
+        <mat-header-cell *matHeaderCellDef class="tableHeader">
+          <div style="display: inherit">
+            Donor Name
+            <i *ngIf="order; else descending" class="fa fa-sort-asc" aria-hidden="true"
+              (click)="tableSort('donorName',true)" style="padding-left: 5px;padding-top: 5px"></i>
+            <ng-template #descending>
+              <i class="fa fa-sort-desc" aria-hidden="true" (click)="tableSort('donorName',false)"
+                style="padding-left: 5px; "></i>
+            </ng-template>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="text-transform: capitalize"> {{element.donorName | titlecase}}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Country Column -->
+      <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef class="tableHeader">
+          <div style="display: inherit">Country
+            <i *ngIf="order; else descending" class="fa fa-sort-asc" aria-hidden="true"
+              (click)="tableSort('country',true)" style="padding-left: 5px;padding-top: 5px"></i>
+            <ng-template #descending>
+              <i class="fa fa-sort-desc" aria-hidden="true" (click)="tableSort('country',false)"
+                style="padding-left: 5px; "></i>
+            </ng-template>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+      </ng-container>
+
+      <!-- Pledge Amount Column -->
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef class="tableHeader" style="display: flex;
+            justify-content: flex-end;">
+          <div style="display: inherit"> ($) Amount
+            <i *ngIf="order; else descending" class="fa fa-sort-asc" aria-hidden="true"
+              (click)="tableSort('amount',true)" style="padding-left: 5px;padding-top: 5px"></i>
+            <ng-template #descending>
+              <i class="fa fa-sort-desc" aria-hidden="true" (click)="tableSort('amount',false)"
+                style="padding-left: 5px; "></i>
+            </ng-template>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="justify-content: flex-end;
+            padding-right: 13px;"> {{element.amount| currency:'CAD':'symbol-narrow':'1.0-0'}} </mat-cell>
+      </ng-container>
+
+      <!-- Approver Column -->
+      <ng-container matColumnDef="approver">
+        <mat-header-cell *matHeaderCellDef class="tableHeader" style="padding-left: 60px;">
+          <div style="display: inherit">
+            Approver
+            <i *ngIf="order; else descending" class="fa fa-sort-asc" aria-hidden="true"
+              (click)="tableSort('approvedBy',true)" style="padding-left: 5px;padding-top: 5px"></i>
+            <ng-template #descending>
+              <i class="fa fa-sort-desc" aria-hidden="true" (click)="tableSort('approvedBy',false)"
+                style="padding-left: 5px; "></i>
+            </ng-template>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="text-transform: capitalize;padding-left: 60px;">
+          {{element.approvedBy | titlecase}} </mat-cell>
+      </ng-container>
+
+      <!-- Start Date Column -->
+      <ng-container matColumnDef="startDate">
+        <mat-header-cell *matHeaderCellDef class="tableHeader" style="display: flex;
+            justify-content: flex-end;">
+          <div style="display: inherit">
+            Start Date<i *ngIf="order; else descending" class="fa fa-sort-asc" aria-hidden="true"
+              (click)="tableSort('startDate',true)" style="padding-left: 5px;padding-top: 5px"></i>
+            <ng-template #descending>
+              <i class="fa fa-sort-desc" aria-hidden="true" (click)="tableSort('startDate',false)"
+                style="padding-left: 5px; "></i>
+            </ng-template>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="justify-content: flex-end;
+            padding-right: 13px;"> {{element.startDate | date: 'MM/dd/yyyy'}} </mat-cell>
+      </ng-container>
+
+
+      <!-- End Date Column -->
+      <ng-container matColumnDef="endDate">
+        <mat-header-cell *matHeaderCellDef class="tableHeader" style="display: flex;
+            justify-content: flex-end;">
+          <div style="display: inherit"> End Date<i *ngIf="order; else descending" class="fa fa-sort-asc"
+              aria-hidden="true" (click)="tableSort('endDate',true)" style="padding-left: 5px;padding-top: 5px"></i>
+            <ng-template #descending>
+              <i class="fa fa-sort-desc" aria-hidden="true" (click)="tableSort('endDate',false)"
+                style="padding-left: 5px; "></i>
+            </ng-template>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="justify-content: flex-end;
+            padding-right: 13px;"> {{element.endDate | date: 'MM/dd/yyyy'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef class="tableHeader">
+          <div style="margin-left: 20px;">
+            Action
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" style="padding-right: 25px;">
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <button mat-raised-button class="arIcon" matTooltip="Initiate AR"><i class="fa fa-credit-card"
+              aria-hidden="true"></i></button>
+        </mat-cell>
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; let j = index; columns: displayedColumns;" (click)="selectRow(row,j)"></mat-row>
+    </mat-table>
+
+    <div *ngIf="dataSource == null || dataSource.data.length == 0">
+      <h1 mat-dialog-title style="background: #02375f;color: white;">
+        <div style="margin-left: 20px;padding-top: 5px;font-size: 15px;font-weight: 400;">
+          <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right: 7px;"></i>
+          INFO!
+        </div>
+      </h1>
+      <div mat-dialog-content
+        style="padding-right: 0px; margin-right: 0px;font-weight: 400;margin-left: -5px;font-size: 14px;padding-left: 35px;">
+        <p><i class="fa fa-exclamation" aria-hidden="true"></i> No records found</p>
+      </div>
+
+    </div>
+
+    <div>
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination" style="float:right; margin-right: 20px;">
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(page)">{{page}}</button>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+          <button mat-raised-button class="paginationBtn" (click)="setPage(pager.currentPage + 1)"
+            style="border: 1px solid #27aaf5;">></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="initiateARForm" (ngSubmit)="onARSubmit()" style="margin-left: 20px;" *ngIf="isRowClicked">
+  <div class="form-group ARForm">
+    <!-- Pledge Id Column -->
+    <div>
+      <label class="form-label">PLEDGE ID:</label>
+      <input type="text" formControlName="pledgeId" class="form-control ARFormInput" value={{rowData.pledgeId}}
+        disabled>
+    </div>
+    <br />
+    <!-- donorName Column -->
+    <div>
+      <label class="form-label">DONOR NAME:</label>
+      <input type="text" formControlName="donorName" class="form-control ARFormInput" value={{rowData.donorName}}
+        disabled>
+    </div>
+    <br />
+    <!-- Country Column -->
+    <div>
+      <label class="form-label">COUNTRY:</label>
+      <input type="text" formControlName="country" class="form-control ARFormInput" value={{rowData.country}} disabled>
+    </div>
+    <br />
+
+    <!-- pledgeType Column -->
+    <div>
+      <label class="form-label">FUND TYPE:</label>
+      <input type="text" formControlName="pledgeFundType" class="form-control ARFormInput"
+        value={{rowData.pledgeFundType}} disabled>
+    </div>
+    <br />
+    <!-- Account No Column -->
+    <div>
+      <label class="form-label">ACCOUNT NO.: <span class="required">*</span></label>
+      <input type="text" formControlName="accountNo" class="form-control ARFormInput">
+      <control-messages [control]="initiateARForm.get('accountNo')" class="accountCM">
+        <div style="
+        padding-left: 35px;
+    "></div>
+      </control-messages>
+    </div>
+    <br />
+    <!-- Bank name Column -->
+    <div>
+      <label class="form-label">BANK NAME: <span class="required">*</span></label>
+      <select formControlName="bankName" class="form-control ARFormInput " value={{rowData.bankName}}>
+        <option value="SBI">SBI</option>
+        <option value="Wells Fargo">Wells Fargo</option>
+        <option value="City">City</option>
+        <option value="RBI">RBI</option>
+      </select>
+      <control-messages [control]="initiateARForm.get('bankName')"></control-messages>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">START DATE:</label>
+      <input type="text" formControlName="startDate" class="form-control ARFormInput" value={{rowData.startDate}}
+        disabled>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">END DATE:</label>
+      <input type="text" formControlName="endDate" class="form-control ARFormInput" value={{rowData.endDate}} disabled>
+    </div>
+    <br />
+    <div>
+      <div style="display:inline-grid">
+        <label class="form-label" style="margin-bottom: 0px;">AMOUNT: </label>
+        <span style="font-size: 11px">(USD)</span>
+      </div>
+      <input type="text" formControlName="amount" class="form-control ARFormInput" value={{rowData.amount}} disabled>
+
+    </div>
+    <br />
+    <div>
+      <label class="form-label">PAYMENT PERIOD:</label>
+      <input type="text" formControlName="paymentPeriod" class="form-control ARFormInput"
+        value={{rowData.paymentPeriod}} disabled>
+    </div>
+    <br />
+    <div>
+      <label class="form-label">INSTALLMENTS:</label>
+      <input type="text" formControlName="installments" class="form-control ARFormInput" value={{rowData.installments}}
+        disabled>
+    </div>
+    <br />
+    <div style="display: inline-flex;margin-left: 225px; margin-top: 10px;">
+      <div class="form-group" style="float: right;padding-top: 10px;padding-right: 30px;">
+        <button mat-raised-button class="initiatePledgeForm-submitBtn" style="outline: none">
+          Submit
+        </button>
+      </div>
+
+      <div class="form-group" style="float: right;padding-top: 10px; padding-right: 115px; ">
+        <button mat-raised-button class="initiatePledgeForm-submitBtn" style="outline: none"
+          (click)="onCancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>
